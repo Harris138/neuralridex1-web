@@ -6,27 +6,58 @@
   <title>NeuralRide X1</title>
   <style>
     body {
-      background-color: #000;
-      color: #00ffc8;
-      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #000;
+      color: #00ffe1;
+      font-family: 'Segoe UI', sans-serif;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      height: 100vh;
-      margin: 0;
+      min-height: 100vh;
       text-align: center;
+      animation: fadeIn 1.5s ease-in;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .logo {
+      margin-bottom: 10px;
+    }
+    .logo img {
+      width: 100px;
     }
     h1 {
-      font-size: 2.5em;
+      font-size: 2.8em;
+      margin: 0.2em 0;
     }
     p {
       font-size: 1.2em;
+      margin-bottom: 1.5em;
+    }
+    .btn {
+      background: transparent;
+      border: 2px solid #00ffe1;
+      color: #00ffe1;
+      padding: 0.6em 1.5em;
+      font-size: 1em;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s, color 0.3s;
+    }
+    .btn:hover {
+      background: #00ffe1;
+      color: #000;
     }
   </style>
 </head>
 <body>
+  <div class="logo">
+    <img src="https://harris138.github.io/neuralridex1-web/assets/logo-placeholder.png" alt="NeuralRide Logo" />
+  </div>
   <h1>NeuralRide X1</h1>
   <p>Next-gen AI Motorcycle HUD — Coming Soon</p>
+  <a href="#" class="btn">Join the Movement</a>
 </body>
 </html>
