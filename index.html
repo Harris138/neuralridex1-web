@@ -1,0 +1,97 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NeuralRide X1 - Join Us</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #020b0f;
+      color: #00f9ff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+    h1 {
+      text-shadow: 0 0 10px #00f9ff, 0 0 20px #00f9ff;
+    }
+    .form-container {
+      background: #000;
+      border-radius: 12px;
+      padding: 2rem;
+      box-shadow: 0 0 20px #00f9ff88;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+    input {
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #00f9ff;
+      background: #010f12;
+      color: #fff;
+      width: 250px;
+    }
+    button {
+      background: #00f9ff;
+      color: #000;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .message {
+      margin-top: 1rem;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>NeuralRide X1</h1>
+  <div class="form-container">
+    <input type="text" id="name" placeholder="Your Name" required />
+    <input type="email" id="email" placeholder="Your Email" required />
+    <button onclick="subscribe()">Join the Ride</button>
+    <div id="message" class="message"></div>
+  </div>
+
+  <script>
+    const supabaseUrl = 'https://cypbeyshbobskjghujqa.supabase.co';
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...';
+    const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+
+    async function subscribe() {
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const message = document.getElementById('message');
+
+      if (!name || !email) {
+        message.textContent = 'Please fill out both fields.';
+        return;
+      }
+
+      const { data, error } = await supabase
+        .from('subscribers')
+        .insert([{ Name: name, Email: email }]);
+
+      if (error) {
+        message.textContent = 'Something went wrong. Try again.';
+        console.error(error);
+      } else {
+        message.textContent = 'Thanks for signing up!';
+        document.getElementById('name').value = '';
+        document.getElementById('email').value = '';
+      }
+    }
+  </script>
+</body>
+</html>
