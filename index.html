@@ -1,0 +1,105 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NeuralRide X1</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #020f0f;
+      color: white;
+      text-align: center;
+    }
+    .hero {
+      padding: 100px 20px;
+    }
+    h1 {
+      font-size: 3rem;
+      color: #00fff7;
+      text-shadow: 0 0 10px #00fff7;
+    }
+    p {
+      font-size: 1.2rem;
+      margin: 20px 0;
+    }
+    form {
+      background-color: #101c1c;
+      border-radius: 10px;
+      padding: 20px;
+      display: inline-block;
+      margin-top: 30px;
+      box-shadow: 0 0 15px #00fff7;
+    }
+    input[type="text"], input[type="email"] {
+      width: 300px;
+      padding: 10px;
+      margin: 10px;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+    input[type="submit"] {
+      background-color: #00fff7;
+      border: none;
+      padding: 10px 20px;
+      font-size: 1rem;
+      color: black;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    .logo {
+      font-size: 1.5rem;
+      color: #00fff7;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="hero">
+    <div class="logo">NeuralRide</div>
+    <h1>Experience the Future of Riding</h1>
+    <p>Register below to join our early access program for the NeuralRide X1 HUD system.</p>
+
+    <form id="subscriber-form">
+      <input type="text" id="name" placeholder="Your Name" required />
+      <input type="email" id="email" placeholder="Your Email" required />
+      <br />
+      <input type="submit" value="Join Now" />
+    </form>
+
+    <div id="confirmation" style="margin-top:20px; display:none;">
+      <p style="color:#00fff7;">Thanks for signing up!</p>
+    </div>
+  </div>
+
+  <script type="module">
+    import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
+
+    const supabaseUrl = "https://cypbeyshbobskjghujqa.supabase.co";
+    const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...";
+    const supabase = createClient(supabaseUrl, supabaseKey);
+
+    document.getElementById("subscriber-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+
+      const { data, error } = await supabase
+        .from("subscribers")
+        .insert([{ Name: name, Email: email }]);
+
+      if (error) {
+        alert("Error submitting form: " + error.message);
+      } else {
+        document.getElementById("subscriber-form").reset();
+        document.getElementById("confirmation").style.display = "block";
+      }
+    });
+  </script>
+</body>
+</html>
