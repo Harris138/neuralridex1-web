@@ -1,0 +1,113 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NeuralRide X1 Login</title>
+  <style>
+    body {
+      background-color: #010f0f;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #0ff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .login-box {
+      background-color: #000;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 20px #0ff;
+      width: 90%;
+      max-width: 320px;
+      text-align: center;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      font-size: 26px;
+      text-shadow: 0 0 8px #0ff;
+    }
+
+    input {
+      width: 90%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #0ff;
+      background-color: #022;
+      color: #0ff;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+
+    button {
+      background-color: transparent;
+      border: 2px solid #0ff;
+      color: #0ff;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      text-shadow: 0 0 5px #0ff;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: #0ff;
+      color: #000;
+      box-shadow: 0 0 10px #0ff;
+    }
+
+    .message {
+      margin-top: 15px;
+      color: #0f0;
+      font-weight: bold;
+      display: none;
+    }
+
+    .back-link {
+      display: block;
+      margin-top: 20px;
+      color: #0ff;
+      text-decoration: none;
+      border: 2px solid #0ff;
+      padding: 10px 20px;
+      border-radius: 6px;
+      transition: 0.3s;
+    }
+
+    .back-link:hover {
+      background-color: #0ff;
+      color: #000;
+      box-shadow: 0 0 10px #0ff;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-box">
+    <h1>NeuralRide Access</h1>
+    <input type="text" placeholder="Username" id="username" required />
+    <input type="password" placeholder="Password" id="password" required />
+    <button onclick="simulateLogin()">Login</button>
+    <div class="message" id="login-message">Access Granted. Redirecting...</div>
+    <a class="back-link" href="index.html">&larr; Back to Homepage</a>
+  </div>
+
+  <script>
+    function simulateLogin() {
+      const message = document.getElementById("login-message");
+      message.style.display = "block";
+      setTimeout(() => {
+        window.location.href = "investor-dashboard.html";
+      }, 2000);
+    }
+  </script>
+
+</body>
+</html>
