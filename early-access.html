@@ -1,0 +1,104 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Early Access - NeuralRide X1</title>
+  <style>
+    body {
+      background-color: #010f0f;
+      color: #0ff;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 500px;
+      margin: 80px auto;
+      padding: 30px;
+      background-color: #000;
+      box-shadow: 0 0 20px #0ff88f22;
+      border-radius: 10px;
+    }
+
+    h1 {
+      font-size: 28px;
+      margin-bottom: 10px;
+      text-shadow: 0 0 10px #0ff;
+    }
+
+    p {
+      font-size: 16px;
+      color: #bdf;
+      margin-bottom: 30px;
+    }
+
+    input, button {
+      width: 90%;
+      padding: 12px;
+      margin: 10px 0;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      outline: none;
+    }
+
+    input {
+      background-color: #022;
+      color: #0ff;
+      border: 1px solid #0ff;
+    }
+
+    button {
+      background-color: transparent;
+      border: 2px solid #0ff;
+      color: #0ff;
+      text-shadow: 0 0 4px #0ff;
+      transition: 0.3s;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0ff;
+      color: #000;
+      box-shadow: 0 0 10px #0ff;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-top: 20px;
+      text-decoration: none;
+      color: #0ff;
+      border: 2px solid #0ff;
+      padding: 10px 20px;
+      border-radius: 6px;
+      transition: 0.3s;
+    }
+
+    .back-link:hover {
+      background-color: #0ff;
+      color: #000;
+      box-shadow: 0 0 10px #0ff;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Join the Early Access Program</h1>
+    <p>Be among the first to ride with NeuralRide X1. Register below to express interest.</p>
+
+    <form onsubmit="event.preventDefault(); alert('Thank you! You are now on the early access list.');">
+      <input type="text" name="name" placeholder="Full Name" required />
+      <input type="email" name="email" placeholder="Email Address" required />
+      <button type="submit">Request Access</button>
+    </form>
+
+    <a class="back-link" href="index.html">&larr; Back to Homepage</a>
+  </div>
+
+</body>
+</html>
