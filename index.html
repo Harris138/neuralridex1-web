@@ -1,0 +1,100 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NeuralRide X1</title>
+  <style>
+    body {
+      background: #0a0a0a;
+      color: #ffffff;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 50px;
+    }
+
+    h1 {
+      font-size: 3em;
+      text-shadow: 0 0 20px #00f0ff, 0 0 30px #00c2ff;
+      animation: glow 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes glow {
+      from {
+        text-shadow: 0 0 10px #00f0ff;
+      }
+      to {
+        text-shadow: 0 0 30px #00f0ff, 0 0 60px #00f0ff;
+      }
+    }
+
+    form {
+      margin-top: 30px;
+    }
+
+    input, button {
+      padding: 10px;
+      margin: 10px;
+      width: 250px;
+      border: none;
+      border-radius: 5px;
+      font-size: 1em;
+    }
+
+    input {
+      background-color: #1a1a1a;
+      color: #ffffff;
+    }
+
+    button {
+      background-color: #00f0ff;
+      color: #000000;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #00c2ff;
+    }
+  </style>
+
+  <!-- Supabase setup -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  <script>
+    const SUPABASE_URL = 'https://cypbeyshbobskjghujqa.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN5cGJleXNoYm9ic2tqZ2h1anFhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTU2MzQxNjksImV4cCI6MjAzMTIxMDE2OX0.f3DRIUV6bcqn4Wgi7ZPiYaSPxKk8esUmJMuW5FZaK-g';
+    const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  </script>
+</head>
+
+<body>
+  <h1>NeuralRide X1</h1>
+  <p>Join the future. Sign up for early access.</p>
+
+  <form id="early-access-form">
+    <input type="text" id="name" placeholder="Your Name" required />
+    <input type="email" id="email" placeholder="Your Email" required />
+    <button type="submit">Join Now</button>
+  </form>
+
+  <script>
+    document.getElementById('early-access-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+
+      const { error } = await supabase.from('early_access_users').insert([
+        { Name: name, Email: email }
+      ]);
+
+      if (error) {
+        alert('Something went wrong: ' + error.message);
+      } else {
+        alert('Thanks! You’re on the list.');
+        document.getElementById('early-access-form').reset();
+      }
+    });
+  </script>
+</body>
+</html>
