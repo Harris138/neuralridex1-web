@@ -1,0 +1,142 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Community Hub - NeuralRide X1</title>
+  <style>
+    body {
+      background-color: #0a0a0a;
+      color: #ffffff;
+      font-family: Arial, sans-serif;
+      padding: 30px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2.5em;
+      text-shadow: 0 0 20px #00f0ff;
+    }
+
+    form {
+      margin: 20px auto;
+      max-width: 600px;
+    }
+
+    input, textarea, button {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 5px;
+      font-size: 1em;
+    }
+
+    input, textarea {
+      background-color: #1a1a1a;
+      color: #ffffff;
+    }
+
+    button {
+      background-color: #00f0ff;
+      color: #000000;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #00c2ff;
+    }
+
+    .post {
+      background-color: #1a1a1a;
+      padding: 15px;
+      border-radius: 8px;
+      margin-top: 15px;
+      text-align: left;
+    }
+
+    .post p {
+      margin: 5px 0;
+    }
+
+    .post .author {
+      font-weight: bold;
+      color: #00f0ff;
+    }
+
+    .post .timestamp {
+      font-size: 0.8em;
+      color: #888;
+    }
+  </style>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  <script>
+    const SUPABASE_URL = 'https://cypbeyshbobskjghujqa.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN5cGJleXNoYm9ic2tqZ2h1anFhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTU2MzQxNjksImV4cCI6MjAzMTIxMDE2OX0.f3DRIUV6bcqn4Wgi7ZPiYaSPxKk8esUmJMuW5FZaK-g';
+    const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    async function fetchPosts() {
+      const { data, error } = await supabase.from('posts').select('*').order('created_at', { ascending: false });
+      const feed = document.getElementById('feed');
+      feed.innerHTML = '';
+
+      if (error) {
+        feed.innerHTML = '<p>Error loading posts</p>';
+        return;
+      }
+
+      data.forEach(post => {
+        const div = document.createElement('div');
+        div.className = 'post';
+        div.innerHTML = `
+          <p class="author">${post.author || 'Anonymous'}</p>
+          <p>${post.message}</p>
+          <p class="timestamp">${new Date(post.created_at).toLocaleString()}</p>
+        `;
+        feed.appendChild(div);
+      });
+    }
+
+    async function submitPost(e) {
+      e.preventDefault();
+      const author = document.getElementById('author').value || 'Anonymous';
+      const message = document.getElementById('message').value;
+
+      if (!message.trim()) {
+        alert("Post can't be empty.");
+        return;
+      }
+
+      const { error } = await supabase.from('posts').insert([
+        { author, message }
+      ]);
+
+      if (error) {
+        alert('Error posting: ' + error.message);
+      } else {
+        document.getElementById('post-form').reset();
+        fetchPosts();
+      }
+    }
+
+    window.onload = fetchPosts;
+  </script>
+</head>
+
+<body>
+  <h1>NeuralRide X1 Community Hub</h1>
+
+  <form id="post-form" onsubmit="submitPost(event)">
+    <input type="text" id="author" placeholder="Your Name (optional)" />
+    <textarea id="message" rows="5" placeholder="Share your thoughts..." required></textarea>
+    <button type="submit">Post</button>
+  </form>
+
+  <div id="feed">
+    <p>Loading posts...</p>
+  </div>
+</body>
+</html>
