@@ -1,0 +1,84 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Investor Dashboard - NeuralRide X1</title>
+  <style>
+    body {
+      background-color: #0a0a0a;
+      color: #ffffff;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 50px;
+    }
+
+    h1 {
+      font-size: 2.5em;
+      text-shadow: 0 0 20px #00f0ff;
+    }
+
+    .info-box {
+      margin-top: 30px;
+      padding: 20px;
+      background-color: #1a1a1a;
+      border-radius: 10px;
+      display: inline-block;
+      width: 90%;
+      max-width: 600px;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 12px 24px;
+      font-size: 1em;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      background-color: #00f0ff;
+      color: #000;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background-color: #00c2ff;
+    }
+  </style>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  <script>
+    const SUPABASE_URL = 'https://cypbeyshbobskjghujqa.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN5cGJleXNoYm9ic2tqZ2h1anFhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTU2MzQxNjksImV4cCI6MjAzMTIxMDE2OX0.f3DRIUV6bcqn4Wgi7ZPiYaSPxKk8esUmJMuW5FZaK-g';
+    const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    async function loadUser() {
+      const { data: { user }, error } = await supabase.auth.getUser();
+      const userInfo = document.getElementById('user-info');
+
+      if (error || !user) {
+        window.location.href = 'investor-login.html';
+      } else {
+        userInfo.innerText = `Welcome, ${user.email}`;
+      }
+    }
+
+    async function logout() {
+      await supabase.auth.signOut();
+      window.location.href = 'investor-login.html';
+    }
+
+    window.onload = loadUser;
+  </script>
+</head>
+
+<body>
+  <h1>Investor Dashboard</h1>
+
+  <div class="info-box">
+    <p id="user-info">Loading...</p>
+    <p>This area will soon show investor-specific data, insights, and updates about NeuralRide X1.</p>
+    <button onclick="logout()">Log Out</button>
+  </div>
+</body>
+</html>
